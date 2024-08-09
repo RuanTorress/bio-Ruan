@@ -1,7 +1,7 @@
 :root {
   --background: #2e2d2d;
   --very-dark-blue: #2c2e43;
-  --white: #ffffff;
+  --white: #393c5c;
   --gray-300: #cbd5e0;
   --gray-400: #888585;
 }
@@ -29,21 +29,36 @@ body {
 }
 
 .avatar {
-  border: 3px solid var(--white);
-  border-radius: 50%;
-  max-width: 200px;
-  max-height: 150px;
+  border: 5px solid var(--white);
+  border-radius: 0; /* Remove o arredondamento */
+  max-width: 150px; /* Ajusta a largura máxima */
+  max-height: 300px; /* Ajusta a altura máxima */
   width: auto;
   height: auto;
+  clip-path: polygon(
+    19% 0%,  /* Leve deslocamento à direita para uma borda mais definida */
+    95% 0%,  /* Mantém a quebra superior dentro dos limites */
+    100% 0%, /* Pequeno detalhe na parte superior direita */
+    100% 80%, /* Mantém a lateral direita reta até a quebra inferior */
+    90% 100%, /* Ligeiro deslocamento para dentro na parte inferior direita */
+    0% 100%, /* Mantém a base reta até a ponta quebrada */
+    0% 80%,  /* Pequeno recuo na lateral esquerda */
+    0% 15%   /* Desloca a quebra inferior para o meio da lateral esquerda */
+  );
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil para um efeito de elevação */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza a transformação ao passar o mouse */
 }
 
 .avatar:hover {
-  border: 3px solid var(--gray-400);
+  transform: scale(1.15); /* Leve aumento no tamanho ao passar o mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta a sombra para um efeito de destaque */
 }
+
 
 .outline-avatar {
   margin-bottom: 4px;
 }
+
 
 .icon-computer {
   width: 30px;
