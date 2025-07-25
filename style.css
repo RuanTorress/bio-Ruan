@@ -28,6 +28,108 @@ body {
   align-items: center;
 }
 
+/* Carousel Styles */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 280px;
+  justify-content: center;
+}
+
+.carousel-slides {
+  position: relative;
+  width: 150px;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.outline-avatar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.outline-avatar.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.carousel-arrow {
+  background: rgba(57, 60, 92, 0.8);
+  border: 2px solid var(--gray-400);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--gray-400);
+  z-index: 10;
+  margin: 0 8px;
+}
+
+.carousel-arrow:hover {
+  background: var(--very-dark-blue);
+  border-color: var(--gray-300);
+  color: var(--gray-300);
+  transform: scale(1.1);
+}
+
+.carousel-arrow:active {
+  transform: scale(0.95);
+}
+
+.carousel-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.carousel-indicators {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-400);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: var(--gray-400);
+  border-color: var(--gray-300);
+}
+
+.indicator:hover {
+  border-color: var(--gray-300);
+  transform: scale(1.2);
+}
+
 .avatar {
   border: 5px solid var(--white);
   border-radius: 0; /* Remove o arredondamento */
@@ -54,9 +156,15 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta a sombra para um efeito de destaque */
 }
 
-
-.outline-avatar {
-  margin-bottom: 4px;
+/* Hide arrows on larger screens, show only on mobile */
+@media (min-width: 769px) {
+  .carousel-arrow {
+    opacity: 0.6;
+  }
+  
+  .carousel-arrow:hover {
+    opacity: 1;
+  }
 }
 
 
@@ -198,6 +306,11 @@ canvas {
     height: 28px;
     width: 28px;
   }
+
+  .carousel-slides {
+    width: 180px;
+    height: 140px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -221,6 +334,11 @@ canvas {
   .social-network-links svg {
     height: 26px;
     width: 26px;
+  }
+
+  .carousel-slides {
+    width: 160px;
+    height: 120px;
   }
 }
 
@@ -250,6 +368,26 @@ canvas {
     height: 24px;
     width: 24px;
   }
+
+  .carousel-slides {
+    width: 140px;
+    height: 100px;
+  }
+
+  .carousel-wrapper {
+    max-width: 260px;
+  }
+
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+    margin: 0 6px;
+  }
+
+  .carousel-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -277,5 +415,30 @@ canvas {
   .social-network-links svg {
     height: 22px;
     width: 22px;
+  }
+
+  .carousel-slides {
+    width: 120px;
+    height: 80px;
+  }
+
+  .carousel-wrapper {
+    max-width: 220px;
+  }
+
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    margin: 0 4px;
+  }
+
+  .carousel-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
   }
 }
