@@ -1,3 +1,4 @@
+// Particles.js configuration
 particlesJS("particles-js",
   {
     "particles": {
@@ -110,3 +111,104 @@ particlesJS("particles-js",
     "retina_detect": true
   }
 )
+
+// Carousel functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = {
+    currentSlide: 0,
+    slides: document.querySelectorAll('.outline-avatar'),
+    indicators: document.querySelectorAll('.indicator'),
+    prevBtn: document.querySelector('.carousel-prev'),
+    nextBtn: document.querySelector('.carousel-next'),
+    slideContainer: document.querySelector('.carousel-slides'),
+    totalSlides: 0,
+
+    init() {
+      this.totalSlides = this.slides.length;
+      if (this.totalSlides === 0) return;
+
+      // Add event listeners
+      if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prevSlide());
+      if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.nextSlide());
+      
+      this.indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => this.goToSlide(index));
+      });
+
+      // Add touch/swipe support for mobile
+      this.addTouchSupport();
+
+      // Auto-play functionality (optional)
+      this.startAutoPlay();
+    },
+
+    goToSlide(slideIndex) {
+      // Remove active class from current slide and indicator
+      this.slides[this.currentSlide].classList.remove('active');
+      this.indicators[this.currentSlide].classList.remove('active');
+
+      // Update current slide
+      this.currentSlide = slideIndex;
+
+      // Add active class to new slide and indicator
+      this.slides[this.currentSlide].classList.add('active');
+      this.indicators[this.currentSlide].classList.add('active');
+    },
+
+    nextSlide() {
+      const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+      this.goToSlide(nextIndex);
+    },
+
+    prevSlide() {
+      const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+      this.goToSlide(prevIndex);
+    },
+
+    addTouchSupport() {
+      if (!this.slideContainer) return;
+
+      let startX = 0;
+      let isDragging = false;
+
+      this.slideContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+
+      this.slideContainer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault(); // Prevent scrolling
+      });
+
+      this.slideContainer.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        const threshold = 50; // Minimum distance for swipe
+
+        if (Math.abs(diff) > threshold) {
+          if (diff > 0) {
+            this.nextSlide(); // Swipe left - next slide
+          } else {
+            this.prevSlide(); // Swipe right - previous slide
+          }
+        }
+      });
+    },
+
+    startAutoPlay() {
+      // Optional: Auto-advance slides every 5 seconds
+      setInterval(() => {
+        if (this.totalSlides > 1) {
+          this.nextSlide();
+        }
+      }, 5000);
+    }
+  };
+
+  // Initialize carousel
+  carousel.init();
+});
